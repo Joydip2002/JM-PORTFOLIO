@@ -29,7 +29,9 @@ const StudyCard = () => {
                     Price : <b>399/month (8 month)</b>
                   </p>
                 </div>
-                <button className="btn btn-success">Take Admission</button>
+                <Link to='/admission-form'>
+                  <button className="btn btn-success">Take Admission</button>
+                </Link>
               </div>
             </div>
           </Container>

@@ -12,6 +12,7 @@ const Admission = () => {
     mobile: "",
     address: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -19,13 +20,16 @@ const Admission = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post(
         "https://sheet.best/api/sheets/7179ce55-247f-4e0e-9ed7-84cb9f2778e9",
         data
       );
       if (res.status == 200) {
+        setLoading(false);
         toast.success("Response recorded!");
+        toast.success("I call you later for confirmation..Happy Coding😃");
         setData({
           name: "",
           email: "",
@@ -57,7 +61,7 @@ const Admission = () => {
                 {course &&
                   course.map((data, i) =>
                     data.status === true ? (
-                      <option value={data.course_name} key={i}>
+                      <option value={data.course_name} key={i} className="form-option">
                         {data.course_name}
                       </option>
                     ) : (
@@ -108,7 +112,18 @@ const Admission = () => {
                 required
               />
               <button className="btn btn-outline-primary mt-4 w-100">
-                Submit
+                {loading ? (
+                  <div class="d-flex align-items-center">
+                    <strong>Submitting...</strong>
+                    <div
+                      class="spinner-border ms-auto"
+                      role="status"
+                      aria-hidden="true"
+                    ></div>
+                  </div>
+                ) : (
+                  "Submit"
+                )}
               </button>
             </form>
           </div>
